@@ -19,7 +19,7 @@ export default function Edit (){
         setIsLoading(true)
 
         try{
-            const response = await axios.get(`http://localhost:4000/api/products/${id}`)
+            const response = await axios.get(`https://shopbackend-ikrx.onrender.com/api/products/${id}`)
             setProduct({
                 name: response.data.name,
                 quantity: response.data.quantity,
@@ -47,7 +47,7 @@ export default function Edit (){
         setIsLoading(true)
 
         try{
-            await axios.put(`http://localhost:4000/api/products/${id}`, product)
+            await axios.put(`https://shopbackend-ikrx.onrender.com/api/products/${id}`, product)
             toast.success("You successfully updated a product!", {
                 position: "top-center",
                 autoClose: 2000,

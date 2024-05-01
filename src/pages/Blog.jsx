@@ -11,7 +11,7 @@ export default function Blog() {
     const getBlogs = async () => {
         try {
             setIsLoading(true);
-            const response = await axios.get("http://localhost:4000/api/blog");
+            const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/blog");
             setBlogs(response.data);
             setIsLoading(false);
         } catch (error) {

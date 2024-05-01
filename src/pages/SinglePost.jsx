@@ -24,7 +24,7 @@ export default function SinglePost(){
         const getBlogPost = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:4000/api/blog/${id}`);
+                const response = await axios.get(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`);
                 setBlog(response.data);
                 setIsLoading(false);
             } catch (error) {
@@ -49,7 +49,7 @@ export default function SinglePost(){
         const getRecommendations = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get("http://localhost:4000/api/blog");
+                const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/blog");
                 const filteredPosts = response.data.filter(post => post.category === blog.category);
                 setPostRecommendation(filteredPosts);
                 setIsLoading(false);
@@ -108,7 +108,7 @@ export default function SinglePost(){
         })
         if(result.isConfirmed){
             try{
-                await axios.delete(`http://localhost:4000/api/blog/${id}`)
+                await axios.delete(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`)
                 toast.success("You succesfully deleted the post!", {
                 position: "top-center",
                 autoClose: 2000,

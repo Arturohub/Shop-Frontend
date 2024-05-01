@@ -47,7 +47,7 @@ export default function Create() {
     }
     try {
       setIsLoading(true);
-      await axios.post("http://localhost:4000/api/products", {
+      await axios.post("https://shopbackend-ikrx.onrender.com/api/products", {
         name: name,
         quantity: quantity,
         price: price,

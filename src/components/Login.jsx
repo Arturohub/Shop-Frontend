@@ -28,7 +28,7 @@ export default function Login(){
         e.preventDefault();
         const { email, password } = data
         try {
-            const { data } = await axios.post("http://localhost:4000/api/users/login", {
+            const { data } = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/login", {
                 email,
                 password
             });

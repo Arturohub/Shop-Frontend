@@ -50,7 +50,7 @@ export default function NewPost(){
         }
         try{
             setIsLoading(true)
-            const response = await axios.post("http://localhost:4000/api/blog", {title: title, post: post, category: category, image: image})
+            const response = await axios.post("https://shopbackend-ikrx.onrender.com/api/blog", {title: title, post: post, category: category, image: image})
             toast.success("New blog post created and saved successfully", {
                 position: "top-center",
                 autoClose: 2000,

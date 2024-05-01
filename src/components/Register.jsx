@@ -30,7 +30,7 @@ export default function Register() {
         setIsLoading(true);
         const { name, family_name, email, password, mobile_number, profile_picture } = data;
         try {
-            const { data } = await axios.post("http://localhost:4000/api/users/register", {
+            const { data } = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/register", {
                 name, family_name, email, password, mobile_number, profile_picture
             });
             setData({

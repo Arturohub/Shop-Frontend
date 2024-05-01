@@ -79,9 +79,9 @@ export default function NewPost(){
         }
     }
     return (
-        <div className="container mx-auto px-4">
-        <h1 className="flex justify-center text-3xl font-semibold my-8">Create a New Post</h1>
-        <form onSubmit={createPost}>
+        <div className="container bg mx-auto px-4">
+        <h1 className="flex justify-center text-4xl my-8 underline text-gray-200 font-sigmar text-center">Create a New Post</h1>
+        <form className="max-w-lg mx-auto p-8 bg-white shadow-md rounded" onSubmit={createPost}>
             <div className="mb-4">
                 <label htmlFor="title" className="block text-2xl underline italic font-medium text-gray-700 mb-2">Title</label>
                 <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />

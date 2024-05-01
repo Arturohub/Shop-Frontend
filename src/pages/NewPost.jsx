@@ -79,15 +79,15 @@ export default function NewPost(){
         }
     }
     return (
-        <div className="container bg mx-auto px-4">
+        <div className="container mx-auto px-4">
         <h1 className="flex justify-center text-4xl my-8 underline text-gray-200 font-sigmar text-center">Create a New Post</h1>
-        <form className="max-w-lg mx-auto p-8 bg-white shadow-md rounded" onSubmit={createPost}>
+        <form className="mx-auto p-8 bg-white shadow-md rounded" onSubmit={createPost}>
             <div className="mb-4">
-                <label htmlFor="title" className="block text-2xl underline italic font-medium text-gray-700 mb-2">Title</label>
+                <label htmlFor="title" className="block text-gray-700 font-extrabold underline text-lg tracking-wider mb-2">Title</label>
                 <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} className="mt-1 p-2 border border-gray-300 rounded-md w-full" />
             </div>
             <div className="mb-4">
-                <label htmlFor="category" className="block text-2xl underline italic font-medium text-gray-700 mb-2">Category</label>
+                <label htmlFor="category" className="block  text-gray-700 font-extrabold underline text-lg tracking-wider mb-2">Category</label>
                 <div className="flex space-x-4">
                     <label className="inline-flex items-center">
                         <input type="radio" name="category" value="Before/After" checked={category === "Before/After"} onChange={(e) => setCategory(e.target.value)} />
@@ -112,7 +112,7 @@ export default function NewPost(){
                 </div>
             </div>
             <div className="mb-4">
-                <label htmlFor="post" className="block text-2xl underline italic font-medium text-gray-700 mb-2">Post</label>
+                <label htmlFor="post" className="block  text-gray-700 font-extrabold underline text-lg tracking-wider mb-2">Post</label>
                 <ReactQuill
                     theme="snow"
                     value={post}

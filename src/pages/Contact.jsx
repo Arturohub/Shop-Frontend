@@ -51,7 +51,7 @@ export default function Contact() {
                     <label htmlFor="message" className="block mb-2 font-extrabold underline text-lg tracking-wider">Message:</label>
                     <textarea name="message" value={message} onChange={(e)=> setMessage(e.target.value)} rows="6" className="w-full px-3 py-2  shadow appearance-none border border-gray-300 rounded-md focus:outline-none focus:border-blue-500" required />
                 </div>
-                <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mb-4" disabled={isLoading}>{isLoading ? 'Sending...' : 'Submit'}</button>
+                {!isLoading && (<button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mb-4" disabled={isLoading}>{isLoading ? 'Sending...' : 'Submit'}</button>)}
             </form>
         </div>
     );

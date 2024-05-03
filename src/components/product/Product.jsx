@@ -2,7 +2,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
-import { UserContext } from '../context/UserContext';
+import { UserContext } from '../../context/UserContext';
 import { useContext } from "react"
 
 export default function Product( {product, getProducts } ) {
@@ -24,28 +24,11 @@ export default function Product( {product, getProducts } ) {
         })
         if(result.isConfirmed){
             try{
-                await axios.delete(`https://shopbackend-ikrx.onrender.com/api/products/${id}`)
-                toast.success("You succesfully deleted the product!", {                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
+                await axios.delete(`http://localhost:4000/api/products/${id}`)
+                toast.success(response.data.message)
                 getProducts()
             } catch(error) {
-                toast.error(error.message, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
+                toast.error(error.message)
             }
         }
         

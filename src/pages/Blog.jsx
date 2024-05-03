@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { UserContext } from '../context/UserContext';
+import { toast } from 'react-toastify';
 
 export default function Blog() {
     const [blogs, setBlogs] = useState([]);
@@ -9,13 +10,13 @@ export default function Blog() {
     const {user} = useContext(UserContext)
 
     const getBlogs = async () => {
+        setIsLoading(true);
         try {
-            setIsLoading(true);
-            const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/blog");
+            const response = await axios.get("http://localhost:4000/api/blog");
             setBlogs(response.data);
             setIsLoading(false);
         } catch (error) {
-            console.error('Error fetching blog entries:', error);
+            toast.error('Error fetching blog entries:', error);
             setIsLoading(false);
         }
     };
@@ -61,7 +62,7 @@ export default function Blog() {
                         <p className="text-gray-600 mt-2 font-semibold leading-loose">{getTime(blogs[blogs.length - 1].createdAt)}</p>
                         <div className="text-gray-800 mt-4 text-justify leading-loose font-serif" dangerouslySetInnerHTML={{ __html: blogs[blogs.length - 1].post }}/>
                         <div className="flex justify-center">
-                            {blogs[blogs.length - 1].image && <img src={blogs[blogs.length - 1].image} alt="Blog" className="mt-4 rounded-lg max-w-full h-auto lg:max-w-md " />}
+                            {blogs[blogs.length - 1].image && <img src={blogs[blogs.length - 1].image} alt="Blog" className="mt-4 rounded-lg max-w-full h-auto lg:max-w-6xl lg:max-h-96" />}
                         </div>
                     </div>
                 )}

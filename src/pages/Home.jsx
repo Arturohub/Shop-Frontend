@@ -64,7 +64,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="bg-gray-300 py-20 mb-12 rounded-3xl pr-4 pl-4">
+            <section className="bg-brown py-20 mb-12 rounded-3xl pr-4 pl-4">
                 <div className="container mx-auto text-center">
                     <h2 className="text-3xl font-bold mb-12 text-black">Our Services</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
@@ -78,7 +78,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="bg-gray-300 py-20 text-center rounded-3xl pr-4 pl-4">
+            <section className="bg-brown py-20 text-center rounded-3xl pr-4 pl-4">
                 <h2 className="text-3xl font-bold mb-8">What Our Customers Say</h2>
                 <div className="container mx-auto">
                     {testimonials.map((testimonial, index) => (

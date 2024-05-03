@@ -1,11 +1,15 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// tailwind.config.js
+
+module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      colors: {
+        brown: "#cbae9b", 
+      },
       fontFamily: {
         'gloria-hallelujah': ['Gloria Hallelujah', 'cursive'],
         'lobster': ['Lobster', 'cursive'],
@@ -27,5 +31,4 @@ export default {
     },
   },
   plugins: [],
-}
-
+};

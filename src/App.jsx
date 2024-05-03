@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Create from "./pages/Create";
 import Edit from "./pages/Edit";
@@ -10,13 +10,13 @@ import Contact from "./pages/Contact";
 import Shop from "./pages/Shop";
 import SinglePost from "./pages/SinglePost";
 import Navbar from "./components/Navbar";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./components/authentication/Login";
+import Register from "./components/authentication/Register";
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios"
-import ForgotPassword from "./components/ForgotPassword";
-import ResetPassword from "./components/ResetPassword";
+import ForgotPassword from "./components/authentication/ForgotPassword";
+import ResetPassword from "./components/authentication/ResetPassword";
 
 axios.defaults.withCredentials = true
 

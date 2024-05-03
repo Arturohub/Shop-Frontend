@@ -20,57 +20,42 @@ export default function SinglePost(){
 
     const {user} = useContext(UserContext)
 
-    useEffect(() => {
-        const getBlogPost = async () => {
-            try {
-                setIsLoading(true);
-                const response = await axios.get(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`);
-                setBlog(response.data);
-                setIsLoading(false);
-            } catch (error) {
-                toast.error(error.message, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
-                setIsLoading(false);
-            }
-        };
+    const getBlogPost = async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.get(`http://localhost:4000/api/blog/${id}`);
+            setBlog(response.data);
+            setIsLoading(false);
+        } catch (error) {
+            toast.error(error.response.data.message)
+            setIsLoading(false);
+        }
+    };
 
+    
+    useEffect(() => {
         getBlogPost();
-    }, [id]);
+     }, []);
+
+    const getRecommendations = async () => {
+        try {
+            setIsLoading(true);
+            const response = await axios.get("http://localhost:4000/api/blog");
+            const filteredPosts = response.data.filter(post => post.category === blog.category);
+            setPostRecommendation(filteredPosts);
+            setIsLoading(false);
+        } catch (error) {
+            toast.error('Error fetching blog entries:', error);
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const getRecommendations = async () => {
-            try {
-                setIsLoading(true);
-                const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/blog");
-                const filteredPosts = response.data.filter(post => post.category === blog.category);
-                setPostRecommendation(filteredPosts);
-                setIsLoading(false);
-            } catch (error) {
-                console.error('Error fetching blog entries:', error);
-                setIsLoading(false);
-            }
-        };
-
         if (blog.category) {
             getRecommendations();
         }
     }, [blog.category]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (!blog) {
-        return <div>Blog post not found.</div>;
-    }
     const getTime = (createdAt) => {
         const createdDate = new Date(createdAt)
         const currentDate = new Date()
@@ -108,29 +93,11 @@ export default function SinglePost(){
         })
         if(result.isConfirmed){
             try{
-                await axios.delete(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`)
-                toast.success("You succesfully deleted the post!", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
+                await axios.delete(`http://localhost:4000/api/blog/${id}`)
+                toast.success("You succesfully deleted the post!")
                 navigate("/blog")
             } catch(error) {
-                toast.error(error.message, {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                })
+                toast.error(error.message)
             }
         }
     }
@@ -150,14 +117,14 @@ export default function SinglePost(){
                 <p className="text-gray-600 mt-2 font-semibold leading-loose">{getTime(blog.createdAt)}</p>
                 <p className="mt-4 mb-4 text-justify text-gray-800 leading-loose font-serif " dangerouslySetInnerHTML={{ __html: blog.post }}></p>
                 <div className="flex justify-center">
-                    <img src={blog.image} alt="Blog" className="mt-4 rounded-lg max-w-full h-auto lg:max-w-4xl " />
+                    <img src={blog.image} alt="Blog" className="mt-4 rounded-lg max-w-full h-auto lg:max-w-6xl lg:max-h-96 " />
                 </div>
             </div>
          <div className="container mx-auto mt-8">
                 <h2 className="text-4xl underline text-gray-100 font-sigmar text-center mt-14 mb-8">Similar Posts</h2>
                 <ul className="">
                     {postRecommendation.map((blog) => (
-                        <li key={blog.id} className="mb-4 bg-white shadow-md rounded-lg p-3 pl-6">
+                        <li key={blog._id} className="mb-4 bg-white shadow-md rounded-lg p-3 pl-6">
                             <Link to={`/blog/${blog._id}`} className="text-black font-extrabold text-xl hover:underline mt-8 leading-loose">{blog.title}</Link>
                         </li>
                     ))}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react"
 import axios from "axios"
-import Product from "../components/Product"
+import Product from "../components/product/Product"
 import { Link } from "react-router-dom"
 import { UserContext } from '../context/UserContext';
 
@@ -11,23 +11,14 @@ export default function Shop (){
     const {user} = useContext(UserContext)
 
     const getProducts = async () => {
+        setIsLoading(true)
         try{
-            setIsLoading(true)
-            const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/products")
+            const response = await axios.get("http://localhost:4000/api/products")
             setProducts(response.data)
             setIsLoading(false)
 
         } catch (error){
-            toast.error(error, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
+            toast.error(error)
         }
     }
 

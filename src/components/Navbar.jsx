@@ -13,16 +13,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         logout();
-        toast.success("User logged off successfully!", {                
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored"
-        })       
+        toast.success("User logged off successfully!")       
     };
 
     return (
@@ -38,7 +29,10 @@ export default function Navbar() {
                         {user ? (
                             <>
                                 <button onClick={handleLogout} className="text-white text-2xl font-bold hover:scale-125 hover:text-gray-300 font-permanent-marker">Logout</button>
-                                <h2 className="text-white border pb-1.5 pl-1.5 pr-1.5 rounded-xl text-2xl font-bold hover:scale-125 hover:text-gray-300 font-gloria-hallelujah">{user.name}</h2>
+                                <div className="flex flex-row">
+                                    <img src={user.image} alt="profile_image" className="w-10 h-10 rounded-full mr-2" />
+                                    <h2 className="text-white bg-black border pb-1.5 pl-1.5 pr-1.5 rounded-xl text-2xl hover:text-gray-300 font-gloria-hallelujah">{user.name}</h2>
+                                </div>
                             </>
                         ) : (
                             <Link to="/login"><h2 className="text-white text-2xl font-bold hover:scale-125 hover:text-gray-300 font-permanent-marker">Log In</h2></Link>
@@ -56,7 +50,10 @@ export default function Navbar() {
                             {user ? (
                                 <>
                                     <button onClick={handleLogout} className="text-white text-xl font-bold hover:scale-125 hover:text-gray-300 pb-1 mb-1 font-permanent-marker">Logout</button>
-                                    <h2 className="text-white border pb-1.5 pl-1.5 pr-1.5 rounded-xl text-xl font-bold hover:scale-125 hover:text-gray-300 mb-1 font-gloria-hallelujah">{user.name}</h2>
+                                    <div className="flex flex-row justify-center">
+                                        <img src={user.image} alt="profile_image" className="w-10 h-10 rounded-full mr-2" />
+                                        <h2 className="text-white bg-black border pb-1.5 pl-1.5 pr-1.5 rounded-xl text-xl hover:text-gray-300 mb-1 font-gloria-hallelujah">{user.name}</h2>
+                                    </div>
                                 </>
                             ) : (
                                 <Link to="/login"><h2 className="text-white text-xl font-bold hover:scale-125 hover:text-gray-300 font-permanent-marker">Log In</h2></Link>

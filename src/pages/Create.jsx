@@ -31,51 +31,27 @@ export default function Create() {
   };
 
   const createProduct = async (e) => {
+    
     e.preventDefault();
+
     if (name === "" || quantity === "" || price === "" || image === "") {
-      toast.warn("Please, fill out all the input fields!", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.warn("Please, fill out all the input fields!");
       return;
     }
     try {
       setIsLoading(true);
-      await axios.post("https://shopbackend-ikrx.onrender.com/api/products", {
+      await axios.post("http://localhost:4000/api/products", {
         name: name,
         quantity: quantity,
         price: price,
         image: image,
       });
-      toast.success("New product created and saved successfully", {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.success("New product created and saved successfully");
       setIsLoading(false);
       navigate("/shop");
+
     } catch (error) {
-      toast.error(error.message, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(error.message);
       setIsLoading(false);
     }
   };

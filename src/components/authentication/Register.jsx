@@ -5,78 +5,47 @@ import axios from "axios";
 
 export default function Register() {
 
-    const [data, setData] = useState({
-        name: '',
-        family_name: '',
-        email: '',
-        password: '',
-        mobile_number: '',
-        profile_picture: ''
-    });
+    const [name, setName] = useState("")
+    const [familyname, setFamilyName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [mobilenumber, setMobileNumber] = useState("")
+    const [image, setImage] = useState("")
 
     const [isLoading, setIsLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+    const uploadImg = async (e) => {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append("upload_preset", import.meta.env.VITE_UPLOAD_PRESET);
+        const cloudinaryUrl = import.meta.env.VITE_CLOUDINARY_URL;
+        try {
+            setUploading(true)
+            const response = await axios.post(cloudinaryUrl, formData, { withCredentials: false });
+            setImage(response.data.secure_url)
+            setUploading(false);
+        } catch (error) {
+            toast.error('Failed to upload image to Cloudinary:', error);
+            setUploading(false);
+        }
     };
 
-    const registerUser = async (e) => {
+
+        const registerUser = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        const { name, family_name, email, password, mobile_number, profile_picture } = data;
         try {
-            const { data } = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/register", {
-                name, family_name, email, password, mobile_number, profile_picture
+            const response = await axios.post("http://localhost:4000/api/users/register", {
+                name: name, family_name: familyname, email: email, password: password, mobile_number: mobilenumber, profile_picture: image
             });
-            setData({
-                name: '',
-                family_name: '',
-                email: '',
-                password: '',
-                mobile_number: '',
-                profile_picture: ''
-            });
-            toast.success("You successfully registered your user!", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            });
+            toast.success(response.data.message);
             setIsLoading(false);
             navigate("/login");
         } catch (error) {
-            if (error.response) {
-                toast.error(error.response.data.message, {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-            } else {
-                toast.error("An unexpected error occurred", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                });
-            }
+            toast.error(error.response.data.message);
             setIsLoading(false);
         }
     };
@@ -91,18 +60,18 @@ export default function Register() {
                         id="name"
                         type="text"
                         name="name"
-                        value={data.name}
-                        onChange={handleChange}
+                        value={name}
+                        onChange={(e) => setName (e.target.value)}
                         required />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-extrabold underline text-lg tracking-wider mb-2" htmlFor="family_name">Family Name</label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  hover:border-blue-600"
-                        id="family_name"
+                        id="familyname"
                         type="text"
-                        name="family_name"
-                        value={data.family_name}
-                        onChange={handleChange}
+                        name="familyname"
+                        value={familyname}
+                        onChange={(e) => setFamilyName(e.target.value)}
                         required />
                 </div>
                 <div className="mb-4">
@@ -111,8 +80,8 @@ export default function Register() {
                         id="email"
                         type="email"
                         name="email"
-                        value={data.email}
-                        onChange={handleChange}
+                        value={email}
+                        onChange={(e) => setEmail (e.target.value)}
                         required />
                 </div>
                 <div className="mb-4">
@@ -121,36 +90,37 @@ export default function Register() {
                         id="password"
                         type="password"
                         name="password"
-                        value={data.password}
-                        onChange={handleChange}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-extrabold underline text-lg tracking-wider mb-2" htmlFor="mobile_number">Mobile Number</label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  hover:border-blue-600"
-                        id="mobile_number"
+                        id="mobilenumber"
                         type="text"
-                        name="mobile_number"
-                        value={data.mobile_number}
-                        onChange={handleChange}
+                        name="mobilenumber"
+                        value={mobilenumber}
+                        onChange={(e) => setMobileNumber (e.target.value)}
                         required />
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 font-extrabold underline text-lg tracking-wider mb-2" htmlFor="profile_picture">Profile Picture</label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  hover:border-blue-600"
-                        id="profile_picture"
-                        type="text"
-                        name="profile_picture"
-                        value={data.profile_picture}
-                        onChange={handleChange}
+                        id="image"
+                        type="file"
+                        name="image"
+                        onChange={uploadImg}
                         required />
                 </div>
-                <div className="flex flex-col justify-center border-b-4 pb-8">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  hover:border-blue-600"
-                        type="submit">
-                        {isLoading ? 'Loading...' : 'Register'}
-                    </button>
+                <div className='flex justify-center items-center mt-2 mb-4'>
+                    {image && (<img src={image} alt="Profile" className="w-32 h-32 object-cover" /> )}
                 </div>
+                {!isLoading && (
+                    <div className="flex flex-col justify-center border-b-4 pb-8">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  hover:border-blue-600" type="submit">Register</button>
+                    </div>
+                )}
                 <div className="flex flex-col items-center justify-between">
                     <p className="pt-4 pb-2 mt-4 font-bold">Already have an account?</p>
                     <Link className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  hover:border-blue-600"

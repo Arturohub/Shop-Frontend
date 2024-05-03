@@ -16,48 +16,18 @@ export default function ResetPassword() {
     setIsLoading(true);
 
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error('Passwords do not match! Please, try again');
       setIsLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post('https://shopbackend-ikrx.onrender.com/api/users/resetpassword', {
-        token,
-        password,
-      }, { withCredentials: true });
-
-      toast.success('Password reset successful!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-        navigate("/login");
+      setIsLoading(true)
+      const response = await axios.post('http://localhost:4000/api/users/resetpassword', {token, password}, { withCredentials: true });
+      toast.success(response.data.message);
+      navigate("/login");
     } catch (error) {
-      toast.error(error.response.data.message, {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(error.response.data.message);
     } finally {
       setIsLoading(false);
     }
@@ -76,9 +46,10 @@ export default function ResetPassword() {
             <label htmlFor="confirmPassword" className="block text-gray-700 font-extrabold underline text-lg tracking-wider mb-2">Confirm Password</label>
             <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:border-blue-500" required />
           </div>
-          <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-600" disabled={isLoading}>
+          {!isLoading && (<button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:bg-blue-600">
             {isLoading ? "Resetting..." : "Reset Password"}
           </button>
+          )}
         </form>
       </div>
     </div>

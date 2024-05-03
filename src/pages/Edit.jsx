@@ -16,10 +16,13 @@ export default function Edit (){
     });
 
     const getProduct = async () => {
+
         setIsLoading(true)
 
         try{
-            const response = await axios.get(`https://shopbackend-ikrx.onrender.com/api/products/${id}`)
+
+            const response = await axios.get(`http://localhost:4000/api/products/${id}`)
+
             setProduct({
                 name: response.data.name,
                 quantity: response.data.quantity,
@@ -27,50 +30,27 @@ export default function Edit (){
                 image: response.data.image,
             })
             setIsLoading(false);
+
         } catch (error) {
+            toast.error(error.message)
             setIsLoading(false)
-            toast.error(error.message, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
         }
     }
 
     const updateProduct = async (e) => {
+
         e.preventDefault()
+
         setIsLoading(true)
 
         try{
-            await axios.put(`https://shopbackend-ikrx.onrender.com/api/products/${id}`, product)
-            toast.success("You successfully updated a product!", {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
+            await axios.put(`http://localhost:4000/api/products/${id}`, product)
+            toast.success("You successfully updated a product!")
+            setIsLoading(false)
             navigate("/shop")
         } catch (error) {
+            toast.error(error.message)
             setIsLoading(false)
-            toast.error(error.message, {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored"
-        })
         }
     }
 

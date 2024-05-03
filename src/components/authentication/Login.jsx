@@ -2,60 +2,31 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import axios from "axios"
-import { UserContext } from "../context/UserContext"
+import { UserContext } from "../../context/UserContext"
 
 axios.defaults.withCredentials = true; 
 
 export default function Login(){
-    const [data, setData] = useState({
-        email: '',
-        password: ''
-    });
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
     const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate()
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
     const loginUser = async (e) => {
         e.preventDefault();
-        const { email, password } = data
+        setIsLoading(true)
+
         try {
-            const { data } = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/login", {
-                email,
-                password
-            });
-                setUser(data.user);
-                setData({});
-                navigate("/blog");
-                toast.success("You succesfully logged in!", {                
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored"
-            })
+            const response = await axios.post("http://localhost:4000/api/users/login", {email: email, password: password});
+            toast.success(response.data.message)
+            setUser(response.data.user);
+            navigate("/blog");
         } catch (error) {
-            toast.error(error.response.data.message, {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
+            toast.error(error.response.data.message);
         }
     };
 
@@ -69,8 +40,8 @@ export default function Login(){
                            id="email" 
                            type="email" 
                            name="email" 
-                           value={data.email} 
-                           onChange={handleChange} 
+                           value={email} 
+                           onChange={(e) => setEmail(e.target.value)} 
                            required />
                 </div>
                 <div className="mb-6">
@@ -79,16 +50,18 @@ export default function Login(){
                            id="password" 
                            type="password" 
                            name="password" 
-                           value={data.password} 
-                           onChange={handleChange} 
+                           value={password} 
+                           onChange={(e) => setPassword(e.target.value)} 
                            required />
                 </div>
-                <div className="flex flex-col justify-center border-b-4 pb-8">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                            type="submit">
-                        Sign In
-                    </button>
-                </div>
+                {!isLoading && (
+                    <div className="flex flex-col justify-center border-b-4 pb-8">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                                type="submit">
+                            Sign In
+                        </button>
+                    </div>
+                )}
                 <div className="flex flex-col items-center justify-between">
                     
                     <p className="pt-4 pb-2 mt-4 font-bold">Don't have an account?</p>

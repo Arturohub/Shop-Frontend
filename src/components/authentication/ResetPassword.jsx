@@ -23,7 +23,7 @@ export default function ResetPassword() {
 
     try {
       setIsLoading(true)
-      const response = await axios.post('http://localhost:4000/api/users/resetpassword', {token, password}, { withCredentials: true });
+      const response = await axios.post('https://shopbackend-ikrx.onrender.com/api/users/resetpassword', {token, password}, { withCredentials: true });
       toast.success(response.data.message);
       navigate("/login");
     } catch (error) {

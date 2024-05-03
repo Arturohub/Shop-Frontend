@@ -24,7 +24,7 @@ export default function Product( {product, getProducts } ) {
         })
         if(result.isConfirmed){
             try{
-                await axios.delete(`http://localhost:4000/api/products/${id}`)
+                await axios.delete(`https://shopbackend-ikrx.onrender.com/api/products/${id}`)
                 toast.success(response.data.message)
                 getProducts()
             } catch(error) {

@@ -21,7 +21,7 @@ export default function Login(){
         setIsLoading(true)
 
         try {
-            const response = await axios.post("http://localhost:4000/api/users/login", {email: email, password: password});
+            const response = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/login", {email: email, password: password});
             toast.success(response.data.message)
             setUser(response.data.user);
             navigate("/blog");

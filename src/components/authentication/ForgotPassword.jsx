@@ -15,7 +15,7 @@ export default function ForgotPassword() {
         setIsLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:4000/api/users/forgotpassword', {
+            const response = await axios.post('https://shopbackend-ikrx.onrender.com/api/users/forgotpassword', {
                 email,
             }, { withCredentials: true });
             toast.success(response.data.message);

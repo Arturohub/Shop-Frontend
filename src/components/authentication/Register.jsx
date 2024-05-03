@@ -38,7 +38,7 @@ export default function Register() {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const response = await axios.post("http://localhost:4000/api/users/register", {
+            const response = await axios.post("https://shopbackend-ikrx.onrender.com/api/users/register", {
                 name: name, family_name: familyname, email: email, password: password, mobile_number: mobilenumber, profile_picture: image
             });
             toast.success(response.data.message);

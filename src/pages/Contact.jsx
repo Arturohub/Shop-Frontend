@@ -23,7 +23,7 @@ export default function Contact() {
         }
 
         try {
-            await axios.post("http://localhost:4000/api/contact/send", {name: name, email: email, message: message }, { withCredentials: true });
+            await axios.post("https://shopbackend-ikrx.onrender.com/api/contact/send", {name: name, email: email, message: message }, { withCredentials: true });
             toast.success("Message sent. Thanks for contacting us!");
             setIsLoading(false);
             navigate("/shop");

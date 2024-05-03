@@ -10,7 +10,7 @@ export function UserContextProvider({ children }) {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/users/profile", { withCredentials: true });
+        const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/users/profile", { withCredentials: true });
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -25,7 +25,7 @@ export function UserContextProvider({ children }) {
 
   const logout = async () => {
     try {
-      await axios.post("http://localhost:4000/api/users/logout", null, { withCredentials: true });
+      await axios.post("https://shopbackend-ikrx.onrender.com/api/users/logout", null, { withCredentials: true });
       setUser(null);
     } catch (error) {
       console.error("Error logging out:", error);

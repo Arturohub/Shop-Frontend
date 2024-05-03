@@ -39,7 +39,7 @@ export default function EditPost(){
     useEffect(() => {
         const fetchPost = async () => {
           try {
-            const response = await axios.get(`http://localhost:4000/api/blog/${id}`);
+            const response = await axios.get(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`);
             const postData = response.data;
             setTitle(postData.title);
             setPost(postData.post);
@@ -61,7 +61,7 @@ export default function EditPost(){
         }
         try {
           setIsLoading(true);
-          await axios.put(`http://localhost:4000/api/blog/${id}`, {
+          await axios.put(`https://shopbackend-ikrx.onrender.com/api/blog/${id}`, {
             title: title,
             post: post,
             category: category,

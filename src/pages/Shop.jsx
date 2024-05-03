@@ -13,7 +13,7 @@ export default function Shop (){
     const getProducts = async () => {
         setIsLoading(true)
         try{
-            const response = await axios.get("http://localhost:4000/api/products")
+            const response = await axios.get("https://shopbackend-ikrx.onrender.com/api/products")
             setProducts(response.data)
             setIsLoading(false)
 

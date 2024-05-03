@@ -101,7 +101,7 @@ export default function NewPost(){
                 {uploading && <p className="text-sm text-gray-500 mt-2">Uploading image...</p>}
                 {image && <img src={image} alt="Uploaded" className="mt-2 lg:max-w-full lg:max-h-40" />}
             </div>
-            {isLoading && (<button type="submit" className="inline-block mt-4 shadow-md bg-blue-700 text-white rounded-sm px-4 py-2 font-bold hover:bg-blue-600 hover:cursor-pointer" >
+            {!isLoading && (<button type="submit" className="inline-block mt-4 shadow-md bg-blue-700 text-white rounded-sm px-4 py-2 font-bold hover:bg-blue-600 hover:cursor-pointer" >
                 {isLoading ? 'Creating...' : 'Create Post'}
             </button>
             )}
